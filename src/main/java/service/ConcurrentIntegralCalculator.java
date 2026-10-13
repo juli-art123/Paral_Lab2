@@ -17,7 +17,8 @@ public class ConcurrentIntegralCalculator {
         long startTime = System.currentTimeMillis();
         double delta = (b - a) / threads;
         List<Future<Double>> futureList = new ArrayList<>();
-        try (ExecutorService es = Executors.newFixedThreadPool(threads)) {
+        int aval = Runtime.getRuntime().availableProcessors();
+        try (ExecutorService es = Executors.newFixedThreadPool(Math.min(aval, threads))) {
             for (int i = 0; i < threads; i++) {
                 double ai = a + i * delta;
                 double bi = ai + delta;
